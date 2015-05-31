@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{771CD81E-1136-496B-82E1-4AC38FA2CDF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Test.FeatherSharp</RootNamespace>
+    <AssemblyName>Test.FeatherSharp</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\common\FeatherSharp.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Test.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="LogInjectionFeatherTest.cs" />
+    <Compile Include="MergeTest.cs" />
+    <Compile Include="NpcInjectionFeatherTest.cs" />
+    <Compile Include="ProgramTest.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="..\..\common\FeatherSharp.snk">
+      <Link>FeatherSharp.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\FeatherSharp\FeatherSharp.csproj">
+      <Project>{CBAE8DA8-DCA3-4EF8-B1ED-41FB55DBFE3E}</Project>
+      <Name>FeatherSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\source\FeatherSharp.ComponentModel\FeatherSharp.ComponentModel.csproj">
+      <Project>{E146B60B-D42C-4B66-8B91-5B307021A938}</Project>
+      <Name>FeatherSharp.ComponentModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\FeatherSharp.TestExecutable2.exe" />
+    <EmbeddedResource Include="Resources\FeatherSharp.TestLibrary2.dll" />
+    <EmbeddedResource Include="Resources\LogInjectionTestProgram.cs" />
+    <EmbeddedResource Include="Resources\NpcInjectionTestProgram.cs" />
+  </ItemGroup>
+</Project>

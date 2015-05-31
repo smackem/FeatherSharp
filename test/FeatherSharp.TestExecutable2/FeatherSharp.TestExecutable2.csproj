@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FeatherSharp.TestLibrary2\FeatherSharp.TestLibrary2.csproj">
-      <Project>{42d8f4b2-9a27-441c-8cd5-17ea6528e25e}</Project>
+      <Project>{42D8F4B2-9A27-441C-8CD5-17EA6528E25E}</Project>
       <Name>FeatherSharp.TestLibrary2</Name>
     </ProjectReference>
   </ItemGroup>
