@@ -8,7 +8,7 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
 * Compatible with .NET 4.5 and Mono 4
 
 ## Usage
-    (mono) FeatherSharp.exe <Feathers> <FileName>
+    [mono] FeatherSharp.exe <Feathers> <FileName>
       Available Feathers:
       -npc : Inject NotifyPropertyChanged
       -merge : Merge dependencies into <FileName>
