@@ -1,2 +1,94 @@
 # FeatherSharp
 Feather# - An AOP utility for .NET, based on Mono.Cecil.
+
+## Features
+* NotifyPropertyChanged Injection w/ Property Dependencies
+* Logger TypeName and MethodName Injection
+* Merge Assemblies
+* Compatible with .NET 4.5 and Mono 4
+
+## Usage
+    [mono] FeatherSharp.exe <Feathers> <FileName>
+      Available Feathers:
+      -npc : Inject NotifyPropertyChanged
+      -merge : Merge dependencies into <FileName>
+      -log : Inject augmented log method calls
+
+## NotifyPropertyChanged Injection
+#### Feather# turns this...
+    class Class1
+    {
+        public int MyPropertyA { get; set; }
+        public string MyPropertyB { get; set; }
+
+        public string Combined
+        {
+            get { return MyPropertyA.ToString() + MyPropertyB; }
+        }
+    }
+
+#### ...Into this
+    class Class1 : NotifyPropertyChanged
+    {
+        private int a;
+        private string b;
+    
+        public int MyPropertyA
+        {
+            get { return this.a; }
+            set
+            {
+                this.a = value;
+
+                if (value != this.a)
+                {
+                    OnPropertyChanged("MyPropertyA");
+                    OnPropertyChanged("Combined");
+                }
+            }
+        }
+        
+        public string MyPropertyB
+        {
+            get { return this.b; }
+            set
+            {
+                this.b = value;
+                
+                if (value != this.b)
+                {
+                    OnPropertyChanged("MyPropertyB");
+                    OnPropertyChanged("Combined");
+                }
+            }
+        }
+
+        public string Combined
+        {
+            get { return MyPropertyA.ToString() + MyPropertyB; }
+        }
+    }
+
+Implement the INotifyPropertyChanged interface without code bloat by calling
+    [mono] FeatherSharp.exe -npc MyAssembly.dll
+
+## Logger TypeName and MethodName Injection
+#### Feather# turns this...
+    public class Class1
+    {
+        public void LogMethod()
+        {
+            Log.Debug("This seems to work");
+        }
+    }
+   
+#### ...Into this
+    public class Class1
+    {
+        public void LogMethod()
+        {
+            Log.Debug("This seems to work", "Test.FeatherSharp.LogInjection.Class1", "LogMethod");
+        }
+    }
+
+Easily consume the log messages by subscribing to the Log.MessageRaised event, then pass it on to the logging backend of your choice.
