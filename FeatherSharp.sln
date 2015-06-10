@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherSharp.ComponentModel
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{4321DB80-CAEE-4409-901B-EDFF540B842A}"
 	ProjectSection(SolutionItems) = preProject
-		AssemblyInfo.Common.cs = AssemblyInfo.Common.cs
+		source\common\AssemblyInfo.Common.cs = source\common\AssemblyInfo.Common.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A72D4509-F7D6-4CE3-AEA0-C1D8B4E924E8}"
@@ -39,7 +39,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{8C3167
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{455FD2EE-D10E-4F47-B370-E0E7727EB56F}"
 	ProjectSection(SolutionItems) = preProject
+		deploy\NuGet-Signed.exe = deploy\NuGet-Signed.exe
 		deploy\package.ps1 = deploy\package.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{BC4CB4FE-28DD-4B85-9397-961A34E22C55}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\NuGet\FeatherSharp.nuspec = deploy\NuGet\FeatherSharp.nuspec
 	EndProjectSection
 EndProject
 Global
@@ -67,11 +73,9 @@ Global
 		{5C624725-16DE-4077-A8B3-09EE249A2DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C624725-16DE-4077-A8B3-09EE249A2DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C624725-16DE-4077-A8B3-09EE249A2DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C624725-16DE-4077-A8B3-09EE249A2DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD9B1738-F800-4426-A27C-F481F6D7FF3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD9B1738-F800-4426-A27C-F481F6D7FF3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD9B1738-F800-4426-A27C-F481F6D7FF3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD9B1738-F800-4426-A27C-F481F6D7FF3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0AFA410-2950-4D85-BDF6-E1C4E6A5BB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0AFA410-2950-4D85-BDF6-E1C4E6A5BB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0AFA410-2950-4D85-BDF6-E1C4E6A5BB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -96,6 +100,7 @@ Global
 		{CD9B1738-F800-4426-A27C-F481F6D7FF3C} = {1767A57B-FC5A-46B1-82E7-50F45DD0CA4B}
 		{A0AFA410-2950-4D85-BDF6-E1C4E6A5BB3F} = {A72D4509-F7D6-4CE3-AEA0-C1D8B4E924E8}
 		{771CD81E-1136-496B-82E1-4AC38FA2CDF1} = {A72D4509-F7D6-4CE3-AEA0-C1D8B4E924E8}
+		{BC4CB4FE-28DD-4B85-9397-961A34E22C55} = {455FD2EE-D10E-4F47-B370-E0E7727EB56F}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

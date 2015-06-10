@@ -20,8 +20,8 @@ copy $dll NuGet\lib\net45
 copy $exe NuGet\tools
 
 $nuspecFileName = "NuGet\FeatherSharp.nuspec"
-$pattern = "<version>(.*)</version>"
+$pattern = "<version>.*</version>"
 $version = "<version>$dllVersion</version>"
 (Get-Content $nuspecFileName) | %{ $_ -replace $pattern, $version } | Set-Content $nuspecFileName
 
-C:\Develop\Tools\NuGet\NuGet-Signed.exe pack NuGet\FeatherSharp.nuspec
+.\NuGet-Signed.exe pack NuGet\FeatherSharp.nuspec
