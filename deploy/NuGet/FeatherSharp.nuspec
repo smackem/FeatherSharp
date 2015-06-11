@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FeatherSharp</id>
-    <version>0.2.0.0</version>
+    <version>0.2.1.0</version>
     <authors>smackem</authors>
     <owners>smackem</owners>
     <licenseUrl>https://github.com/smackem/FeatherSharp/blob/master/LICENSE</licenseUrl>

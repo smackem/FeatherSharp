@@ -15,9 +15,13 @@ if ($dllVersion -ne $exeVersion) {
 }
 
 echo "Copying $($dll.Name) $($dllVersion)"
-echo "Copying $($exe.Name) $($exeVersion)"
 copy $dll NuGet\lib\net45
+copy ..\source\FeatherSharp.ComponentModel\bin\Release\FeatherSharp.ComponentModel.XML NuGet\lib\net45
+
+echo "Copying $($exe.Name) $($exeVersion)"
 copy $exe NuGet\tools
+copy ..\source\FeatherSharp\bin\Release\*.dll NuGet\tools
+copy ..\source\FeatherSharp\bin\Release\*.config NuGet\tools
 
 $nuspecFileName = "NuGet\FeatherSharp.nuspec"
 $pattern = "<version>.*</version>"

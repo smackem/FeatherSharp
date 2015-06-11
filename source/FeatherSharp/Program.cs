@@ -19,6 +19,8 @@ namespace FeatherSharp
         /// <param name="args">The command-line arguments.</param>
         static void Main(string[] args)
         {
+            Console.WriteLine("Feather# v{0}", typeof(Program).Assembly.GetName().Version);
+
             if (args.Length < 2)
             {
                 PrintUsage();
