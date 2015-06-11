@@ -99,6 +99,6 @@ Visit the Feather# NuGet site:
 
 https://www.nuget.org/packages/FeatherSharp/
 
-Install the Feather# package using the Package Console:
+Add the Feather# package to your project using the Package Manager Console:
 
     Install-Package FeatherSharp
