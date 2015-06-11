@@ -107,6 +107,6 @@ To make it work smoothly, create a batch file named `FeatherSharp.cmd` in your s
 
     @%1\packages\FeatherSharp.0.2.1.0\tools\FeatherSharp.exe %2 %3 %4 %5 %6 %7 %8 %9
 
-Then create the following post build event for every project that uses Feather#:
+Then create the following post build event for every project that uses Feather# (using the -log feather in this example):
 
     $(SolutionDir)FeatherSharp.cmd $(SolutionDir) -log $(TargetPath)
