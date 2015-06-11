@@ -92,3 +92,13 @@ Implement the INotifyPropertyChanged interface without code bloat by calling
     }
 
 Easily consume the log messages by subscribing to the Log.MessageRaised event, then pass it on to the logging backend of your choice.
+
+# Feather# is on NuGet
+
+Visit the Feather# NuGet site:
+
+https://www.nuget.org/packages/FeatherSharp/
+
+Add the Feather# package to your project using the Package Manager Console:
+
+    Install-Package FeatherSharp
