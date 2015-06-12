@@ -39,10 +39,10 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
             get { return this.a; }
             set
             {
-                this.a = value;
-
                 if (value != this.a)
                 {
+                    this.a = value;
+
                     OnPropertyChanged("MyPropertyA");
                     OnPropertyChanged("Combined");
                 }
@@ -54,10 +54,10 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
             get { return this.b; }
             set
             {
-                this.b = value;
-                
                 if (value != this.b)
                 {
+                    this.b = value;
+
                     OnPropertyChanged("MyPropertyB");
                     OnPropertyChanged("Combined");
                 }
