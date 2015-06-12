@@ -15,8 +15,8 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
       -log : Inject augmented log method calls
 
 ## NotifyPropertyChanged Injection
-#### Feather# turns this...
-    class Class1
+#### Feather# turns byte code doing this...
+    class Class1 // ...
     {
         public int MyPropertyA { get; set; }
         public string MyPropertyB { get; set; }
@@ -25,10 +25,11 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
         {
             get { return MyPropertyA.ToString() + MyPropertyB; }
         }
+        // ...
     }
 
-#### ...Into this
-    class Class1 : NotifyPropertyChanged
+#### ...into byte code doing this
+    class Class1 // ...
     {
         private int a;
         private string b;
@@ -67,28 +68,31 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
         {
             get { return MyPropertyA.ToString() + MyPropertyB; }
         }
+        // ...
     }
 
 Implement the INotifyPropertyChanged interface without code bloat by calling
     [mono] FeatherSharp.exe -npc MyAssembly.dll
 
 ## Logger TypeName and MethodName Injection
-#### Feather# turns this...
-    public class Class1
+#### Feather# turns byte code doing this...
+    class Class1 //...
     {
         public void LogMethod()
         {
             Log.Debug("This seems to work");
         }
+        // ...
     }
    
-#### ...Into this
-    public class Class1
+#### ...into byte code doing this
+    class Class1 // ...
     {
         public void LogMethod()
         {
             Log.Debug("This seems to work", "Test.FeatherSharp.LogInjection.Class1", "LogMethod");
         }
+        // ...
     }
 
 Easily consume the log messages by subscribing to the Log.MessageRaised event, then pass it on to the logging backend of your choice.
