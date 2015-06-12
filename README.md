@@ -16,84 +16,91 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
 
 ## NotifyPropertyChanged Injection
 #### Feather# turns byte code doing this...
-    class Class1 // ...
+```c#
+class Class1 // ...
+{
+    public int MyPropertyA { get; set; }
+    public string MyPropertyB { get; set; }
+
+    public string Combined
     {
-        public int MyPropertyA { get; set; }
-        public string MyPropertyB { get; set; }
-
-        public string Combined
-        {
-            get { return MyPropertyA.ToString() + MyPropertyB; }
-        }
-        // ...
+        get { return MyPropertyA.ToString() + MyPropertyB; }
     }
-
+    // ...
+}
+```
 #### ...into byte code doing this
-    class Class1 // ...
+```c#
+class Class1 // ...
+{
+    private int a;
+    private string b;
+
+    public int MyPropertyA
     {
-        private int a;
-        private string b;
-    
-        public int MyPropertyA
+        get { return this.a; }
+        set
         {
-            get { return this.a; }
-            set
+            if (value != this.a)
             {
-                if (value != this.a)
-                {
-                    this.a = value;
+                this.a = value;
 
-                    OnPropertyChanged("MyPropertyA");
-                    OnPropertyChanged("Combined");
-                }
+                OnPropertyChanged("MyPropertyA");
+                OnPropertyChanged("Combined");
             }
         }
-        
-        public string MyPropertyB
-        {
-            get { return this.b; }
-            set
-            {
-                if (value != this.b)
-                {
-                    this.b = value;
-
-                    OnPropertyChanged("MyPropertyB");
-                    OnPropertyChanged("Combined");
-                }
-            }
-        }
-
-        public string Combined
-        {
-            get { return MyPropertyA.ToString() + MyPropertyB; }
-        }
-        // ...
     }
+    
+    public string MyPropertyB
+    {
+        get { return this.b; }
+        set
+        {
+            if (value != this.b)
+            {
+                this.b = value;
+
+                OnPropertyChanged("MyPropertyB");
+                OnPropertyChanged("Combined");
+            }
+        }
+    }
+
+    public string Combined
+    {
+        get { return MyPropertyA.ToString() + MyPropertyB; }
+    }
+    // ...
+}
+```
 
 Implement the INotifyPropertyChanged interface without code bloat by calling
     [mono] FeatherSharp.exe -npc MyAssembly.dll
 
 ## Logger TypeName and MethodName Injection
 #### Feather# turns byte code doing this...
-    class Class1 //...
+```c#
+class Class1 //...
+{
+    public void LogMethod()
     {
-        public void LogMethod()
-        {
-            Log.Debug("This seems to work");
-        }
-        // ...
+        Log.Debug("This seems to work");
     }
+    // ...
+}
+```
    
 #### ...into byte code doing this
-    class Class1 // ...
+```c#
+class Class1 // ...
+{
+    public void LogMethod()
     {
-        public void LogMethod()
-        {
-            Log.Debug("This seems to work", "Test.FeatherSharp.LogInjection.Class1", "LogMethod");
-        }
-        // ...
+        Log.Debug("This seems to work", "Test.FeatherSharp.LogInjection.Class1", "LogMethod");
     }
+    // ...
+}
+```
 
 Easily consume the log messages by subscribing to the Log.MessageRaised event, then pass it on to the logging backend of your choice.
 
