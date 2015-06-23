@@ -118,7 +118,13 @@ Add the Feather# package to your project using the Package Manager Console:
 
 To make it work smoothly, create a batch file named `FeatherSharp.cmd` in your solution folder with the following contents:
 
-    @%1\packages\FeatherSharp.0.2.1.0\tools\FeatherSharp.exe %2 %3 %4 %5 %6 %7 %8 %9
+    @%1\packages\FeatherSharp.0.3.0.0\tools\FeatherSharp.exe %2 %3 %4 %5 %6 %7 %8 %9
+
+or
+
+    @%1\packages\FeatherSharp.0.3.0.0\tools\FeatherSharp.exe --sn=<YourStrongNameFile> %2 %3 %4 %5 %6 %7 %8 %9
+
+if your assembly is signed with a strong name.
 
 Then create the following post build event for every project that uses Feather# (using the -log feather in this example):
 
