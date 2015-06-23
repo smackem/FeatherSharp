@@ -13,6 +13,8 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
       -npc : Inject NotifyPropertyChanged
       -merge : Merge dependencies into <FileName>
       -log : Inject augmented log method calls
+      Options:
+      --sn=<StrongNameFile> : Re-sign with strong name
 
 ## NotifyPropertyChanged Injection
 #### Feather# turns byte code doing this...
