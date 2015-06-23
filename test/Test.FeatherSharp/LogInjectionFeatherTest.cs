@@ -139,6 +139,8 @@ namespace FeatherSharp.Test
                 new[]
                 {
                     Tuple.Create("FeatherSharp.Test.Resources.TestClass1::LogAllLevels",
+                        LogLevel.Trace, "trace message"),
+                    Tuple.Create("FeatherSharp.Test.Resources.TestClass1::LogAllLevels",
                         LogLevel.Debug, "debug message"),
                     Tuple.Create("FeatherSharp.Test.Resources.TestClass1::LogAllLevels",
                         LogLevel.Info, "info message"),

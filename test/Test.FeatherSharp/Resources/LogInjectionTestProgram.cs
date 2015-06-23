@@ -13,6 +13,7 @@ namespace FeatherSharp.Test.Resources
     {
         public void LogAllLevels()
         {
+            Log.Trace("trace message");
             Log.Debug("debug message");
             Log.Info("info message");
             Log.Warn("warn message");

@@ -11,4 +11,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Smackem 2015")]
 [assembly: AssemblyTrademark("")]
 
-[assembly: AssemblyVersion("0.2.1.0")]
+[assembly: AssemblyVersion("0.3.0.0")]

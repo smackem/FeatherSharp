@@ -34,6 +34,17 @@ namespace FeatherSharp.ComponentModel
         }
 
         /// <summary>
+        /// Logs a message with <see cref="LogLevel.Trace"/> level.
+        /// </summary>
+        /// <param name="format">A format string as used by
+        /// <see cref="String.Format(string, object[])"/>.</param>
+        /// <param name="args">The arguments for the string format.</param>
+        public static void Trace(string format, params object[] args)
+        {
+            InternalLog(format, args, null, null, LogLevel.Trace);
+        }
+
+        /// <summary>
         /// Logs a message with <see cref="LogLevel.Debug"/> level.
         /// </summary>
         /// <param name="format">A format string as used by
@@ -169,9 +180,14 @@ namespace FeatherSharp.ComponentModel
     public enum LogLevel
     {
         /// <summary>
-        /// The lowest log level, used for debug messages.
+        /// The lowest log level, used for trace messages.
         /// </summary>
-        Debug   = 0,
+        Trace = 0,
+
+        /// <summary>
+        /// The log level used for debug messages.
+        /// </summary>
+        Debug   = 1,
 
         /// <summary>
         /// Used for signalling important messages not related to any faults.

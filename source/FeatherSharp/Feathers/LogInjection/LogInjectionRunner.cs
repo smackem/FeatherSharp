@@ -15,6 +15,7 @@ namespace FeatherSharp.Feathers.LogInjection
     /// </summary>
     class LogInjectionRunner
     {
+        static readonly SR.MethodInfo TraceMethod;
         static readonly SR.MethodInfo DebugMethod;
         static readonly SR.MethodInfo InfoMethod;
         static readonly SR.MethodInfo WarnMethod;
@@ -87,6 +88,7 @@ namespace FeatherSharp.Feathers.LogInjection
         {
             var logParams = new[] { typeof(string), typeof(object[]) };
 
+            TraceMethod = typeof(Log).GetMethod("Trace", logParams);
             DebugMethod = typeof(Log).GetMethod("Debug", logParams);
             InfoMethod = typeof(Log).GetMethod("Info", logParams);
             WarnMethod = typeof(Log).GetMethod("Warn", logParams);
@@ -115,7 +117,11 @@ namespace FeatherSharp.Feathers.LogInjection
                 var calledMethod = (MethodReference)instr.Operand;
                 LogLevel level;
 
-                if (IsMethod(calledMethod, DebugMethod))
+                if (IsMethod(calledMethod, TraceMethod))
+                {
+                    level = LogLevel.Trace;
+                }
+                else if (IsMethod(calledMethod, DebugMethod))
                 {
                     level = LogLevel.Debug;
                 }

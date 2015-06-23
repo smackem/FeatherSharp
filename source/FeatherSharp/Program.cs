@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,12 +29,11 @@ namespace FeatherSharp
             }
 
             Feathers.IFeather[] feathers;
-            var fileName = ParseCommandLineArgs(args, out feathers);
+            Options options;
+            var fileName = ParseCommandLineArgs(args, out feathers, out options);
 
-            if (feathers.Any(f => f == null))
+            if (fileName == null)
             {
-                Console.WriteLine("Invalid Feather!");
-                Console.WriteLine();
                 PrintUsage();
                 return;
             }
@@ -45,7 +45,7 @@ namespace FeatherSharp
             foreach (var feather in feathers)
                 feather.Execute(assembly.MainModule, fileName);
 
-            WriteAssembly(assembly, fileName);
+            WriteAssembly(assembly, fileName, options.StrongNameFile);
         }
 
         /// <summary>
@@ -53,6 +53,7 @@ namespace FeatherSharp
         /// </summary>
         /// <param name="args">The command-line arguments.</param>
         /// <param name="feathers">Receives the feathers to execute.</param>
+        /// <param name="options">Receives the options to use.</param>
         /// <returns>The name of the file that contains the assembly feather.</returns>
         /// <exception cref="System.ArgumentException">Less than two command line arguments passed!</exception>
         /// <remarks>
@@ -61,10 +62,13 @@ namespace FeatherSharp
         /// <para>Internal for unit testing.</para>
         /// </remarks>
         internal static string ParseCommandLineArgs(string[] args,
-            out Feathers.IFeather[] feathers)
+            out Feathers.IFeather[] feathers, out Options options)
         {
             if (args.Length < 2)
                 throw new ArgumentException("Less than two command line arguments passed!");
+
+            feathers = null;
+            options = null;
 
             var factory = CreateFeatherFactory();
 
@@ -77,11 +81,56 @@ namespace FeatherSharp
                        : null;
             };
 
-            feathers = args.Take(args.Length - 1)
-                .Select(arg => getFeather(arg))
-                .ToArray();
+            var localFeathers = new List<Feathers.IFeather>();
+            var localOptions = new Options();
 
+            foreach (var arg in args.Take(args.Length - 1))
+            {
+                if (arg.StartsWith("--"))
+                {
+                    if (ParseOption(arg, localOptions) == false)
+                    {
+                        Console.WriteLine("Invalid option: '{0}'", arg);
+                        return null;
+                    }
+                }
+                else if (arg.StartsWith("-"))
+                {
+                    var feather = getFeather(arg);
+
+                    if (feather == null)
+                    {
+                        Console.WriteLine("Invalid feather: '{0}'", arg);
+                        return null;
+                    }
+                    else
+                    {
+                        localFeathers.Add(feather);
+                    }
+                }
+            }
+
+            feathers = localFeathers.ToArray();
+            options = localOptions;
             return args.Last();
+        }
+
+        static bool ParseOption(string arg, Options options)
+        {
+            var tokens = arg.Split('=');
+
+            switch (tokens[0].ToLower())
+            {
+                case "--sn":
+                    if (tokens.Length == 2)
+                        options.StrongNameFile = tokens[1];
+                    break;
+
+                default:
+                    return false;
+            }
+
+            return true;
         }
 
         static AssemblyDefinition ReadAssembly(string fileName)
@@ -100,12 +149,20 @@ namespace FeatherSharp
             return null;
         }
 
-        static void WriteAssembly(AssemblyDefinition assembly, string fileName)
+        static void WriteAssembly(AssemblyDefinition assembly, string fileName, string strongNameFile)
         {
-            var writerParameters = new WriterParameters { WriteSymbols = true };
-
             try
             {
+                var strongName = strongNameFile != null
+                                 ? new StrongNameKeyPair(File.ReadAllBytes(strongNameFile))
+                                 : null;
+
+                var writerParameters = new WriterParameters
+                {
+                    WriteSymbols = true,
+                    StrongNameKeyPair = strongName,
+                };
+
                 assembly.Write(fileName, writerParameters);
             }
             catch (IOException ex)
@@ -118,11 +175,13 @@ namespace FeatherSharp
         {
             var br = Environment.NewLine;
 
-            Console.WriteLine("USAGE: FeatherSharp.exe <Feathers> <FileName>" + br
+            Console.WriteLine("USAGE: FeatherSharp.exe <Feathers> <Options> <FileName>" + br
                             + "Feathers:" + br
-                            + "  -npc : Inject NotifyPropertyChanged" + br
-                            + "  -merge : Merge dependencies into <FileName>" + br
-                            + "  -log : Inject augmented log method calls");
+                            + "    -npc : Inject NotifyPropertyChanged" + br
+                            + "    -merge : Merge dependencies into <FileName>" + br
+                            + "    -log : Inject augmented log method calls" + br
+                            + "Options:" + br
+                            + "    --sn=<StrongNameFile> : Re-sign with strong name");
         }
 
         static IDictionary<string, Func<Feathers.IFeather>> CreateFeatherFactory()
@@ -178,5 +237,10 @@ namespace FeatherSharp
         {
             Console.WriteLine("Method {0}: {1}", qualifiedMethodName, info);
         }
+    }
+
+    class Options
+    {
+        public string StrongNameFile { get; set; }
     }
 }
