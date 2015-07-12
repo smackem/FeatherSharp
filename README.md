@@ -2,7 +2,7 @@
 Feather# - An AOP utility for .NET, based on Mono.Cecil.
 
 ## Features
-* NotifyPropertyChanged Injection w/ Property Dependencies
+* INotifyPropertyChanged Injection w/ Property Dependencies
 * Logger TypeName and MethodName Injection
 * Merge Assemblies
 * Compatible with .NET 4.5 and Mono 4
@@ -16,7 +16,7 @@ Feather# - An AOP utility for .NET, based on Mono.Cecil.
       Options:
       --sn=<StrongNameFile> : Re-sign with strong name
 
-## NotifyPropertyChanged Injection
+## INotifyPropertyChanged Injection
 #### Feather# turns byte code doing this...
 ```c#
 class Class1 // ...
