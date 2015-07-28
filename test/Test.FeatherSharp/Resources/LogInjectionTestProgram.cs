@@ -31,6 +31,12 @@ namespace FeatherSharp.Test.Resources
             Log.Error("If this method was feathered something is wrong");
         }
 
+        public async Task TestMethodAsync()
+        {
+            Log.Trace("trace message");
+            await Task.Run(() => Log.Debug("debug message"));
+        }
+
         public void DoesntLog()
         {
             Console.WriteLine("No log call");

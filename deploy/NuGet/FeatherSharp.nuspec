@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FeatherSharp</id>
-    <version>0.3.0.0</version>
+    <version>0.3.1.0</version>
     <authors>smackem</authors>
     <owners>smackem</owners>
     <licenseUrl>https://github.com/smackem/FeatherSharp/blob/master/LICENSE</licenseUrl>
@@ -11,10 +11,9 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Feather# - An AOP utility for .NET, based on Mono.Cecil.</description>
     <releaseNotes>
-        Resolved #4: Re-sign assemblies with strong name,
-        Resolved #3: Add log level "Trace"
+      Resolved #5: Log injection does not work with async methods
     </releaseNotes>
     <copyright>Copyright (c) Smackem 2015</copyright>
-    <tags>INotifyPropertyChanged Logging AOP Mono.Cecil Injection ILMerge</tags>
+    <tags>INotifyPropertyChanged Logging AOP Mono.Cecil Injection ILMerge Feather#</tags>
   </metadata>
 </package>
