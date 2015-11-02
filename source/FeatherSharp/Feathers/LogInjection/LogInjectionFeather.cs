@@ -44,7 +44,8 @@ namespace FeatherSharp.Feathers.LogInjection
             var runner = new LogInjectionRunner(module, this.callback);
 
             var types = from type in module.EnumerateTypes().AsParallel()
-                        where type.IsClass && type.HasFeatherAttribute(FeatherAction.Log)
+                        where type.HasFeatherAttribute(FeatherAction.Log)
+                           || type.IsNested && type.DeclaringType.HasFeatherAttribute(FeatherAction.Log)
                         select type;
 
             foreach (var type in types)

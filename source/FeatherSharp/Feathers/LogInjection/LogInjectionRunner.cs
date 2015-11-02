@@ -143,8 +143,8 @@ namespace FeatherSharp.Feathers.LogInjection
                 }
 
                 instr.Operand = module.Import(InternalLogMethod);
-                il.InsertBefore(instr, Instruction.Create(OpCodes.Ldstr, method.DeclaringType.FullName));
-                il.InsertBefore(instr, Instruction.Create(OpCodes.Ldstr, method.Name));
+                il.InsertBefore(instr, Instruction.Create(OpCodes.Ldstr, method.DeclaringType.GetUndecoratedFullName()));
+                il.InsertBefore(instr, Instruction.Create(OpCodes.Ldstr, method.GetUndecoratedName()));
                 il.InsertBefore(instr, Instruction.Create(OpCodes.Ldc_I4, (int)level));
                 injectionCount++;
             }

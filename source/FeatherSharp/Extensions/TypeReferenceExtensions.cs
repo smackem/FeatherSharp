@@ -46,5 +46,17 @@ namespace FeatherSharp.Extensions
 
             return typeRef.FullName == type.FullName;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string GetUndecoratedFullName(this TypeReference type)
+        {
+            return type.Name.StartsWith("<") && type.IsNested
+                   ? type.DeclaringType.FullName
+                   : type.FullName;
+        }
     }
 }

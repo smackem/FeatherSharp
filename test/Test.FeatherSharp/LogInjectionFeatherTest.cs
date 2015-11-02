@@ -63,11 +63,11 @@ namespace FeatherSharp.Test
         [TearDown]
         public void Cleanup()
         {
-            if (File.Exists(OutputFileName))
-                File.Delete(OutputFileName);
+            //if (File.Exists(OutputFileName))
+            //    File.Delete(OutputFileName);
 
-            if (File.Exists(ModifiedOutputFileName))
-                File.Delete(ModifiedOutputFileName);
+            //if (File.Exists(ModifiedOutputFileName))
+            //    File.Delete(ModifiedOutputFileName);
         }
 
         /// <summary>
@@ -92,6 +92,8 @@ namespace FeatherSharp.Test
                 new[]
                 {
                     Tuple.Create("FeatherSharp.Test.Resources.TestClass1::LogAllLevels",
+                        LogInjectionMethodInfo.Ok),
+                    Tuple.Create("FeatherSharp.Test.Resources.TestClass1::TestMethodAsync",
                         LogInjectionMethodInfo.Ok),
                     Tuple.Create("FeatherSharp.Test.Resources.TestClass1::DontFeatherBecauseIgnored",
                         LogInjectionMethodInfo.Ignored),
@@ -148,6 +150,21 @@ namespace FeatherSharp.Test
                         LogLevel.Warning, "warn message"),
                     Tuple.Create("FeatherSharp.Test.Resources.TestClass1::LogAllLevels",
                         LogLevel.Error, "error message"),
+                },
+                messages);
+
+            messages.Clear();
+
+            var task = type.GetMethod("TestMethodAsync").Invoke(obj, null) as Task;
+            task.Wait();
+
+            CollectionAssert.AreEquivalent(
+                new[]
+                {
+                    Tuple.Create("FeatherSharp.Test.Resources.TestClass1::TestMethodAsync",
+                        LogLevel.Trace, "trace message"),
+                    Tuple.Create("FeatherSharp.Test.Resources.TestClass1::TestMethodAsync",
+                        LogLevel.Debug, "debug message"),
                 },
                 messages);
         }
