@@ -36,13 +36,13 @@ namespace FeatherSharp.Test
         /// Tests <see cref="Program.ParseCommandLine"/>
         /// </summary>
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestCommandLineParsingException()
         {
             IFeather[] dummy;
             Options options;
 
-            Program.ParseCommandLineArgs(new[] { "theOnlyArgument" }, out dummy, out options);
+            Assert.Throws<ArgumentException>(
+                () => Program.ParseCommandLineArgs(new[] { "theOnlyArgument" }, out dummy, out options));
         }
     }
 }
